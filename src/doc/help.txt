@@ -1,0 +1,68 @@
+${THIS_NAME}
+  日本人の名字（苗字・氏・姓・家名）をランダム生成・指定抽出する。
+sub commands:
+  g|gen|generate ランダム生成する。（デフォルト）
+  s|sel|select   曖昧な条件指定で抽出する。
+  e|ext|extract  正確な条件指定で抽出する。
+parameters:
+  ${THIS_NAME} generator [-n NUM] [-u UNIQ]
+    -n 出力件数 1以上の自然数。デフォルト30。-1など負数なら最大件数。0なら何も出力しない。
+    -u 一意制約 デフォルト4。
+         0:デフォルト
+         1:なし
+         2:読みが重複しない
+         3:表記が重複しない
+         4:読みと表記が重複しない
+  ${THIS_NAME} selector 値 ...
+  ${THIS_NAME} extractor [-fbperFBPER COND] ...
+    -f 　前方一致 名字の読みか表記に対して前方一致した名字のみ抽出する
+    -b 　後方一致 名字の読みか表記に対して後方一致した名字のみ抽出する
+    -p 　部分一致 名字の読みか表記に対して部分一致した名字のみ抽出する
+    -e 　完全一致 名字の読みか表記に対して完全一致した名字のみ抽出する
+    -r 　正規表現 名字の読みか表記に対して正規表現に一致した名字のみ抽出する
+    -F 非前方一致 名字の読みか表記に対して前方一致しない名字のみ抽出する
+    -B 非後方一致 名字の読みか表記に対して後方一致しない名字のみ抽出する
+    -P 非部分一致 名字の読みか表記に対して部分一致しない名字のみ抽出する
+    -E 非完全一致 名字の読みか表記に対して完全一致しない名字のみ抽出する
+    -R 非正規表現 名字の読みか表記に対して正規表現に一致しない名字のみ抽出する
+database:
+  $(DB)
+example:
+  ${THIS_NAME}
+  ${THIS_NAME} g
+  ${THIS_NAME} g -n 8
+  ${THIS_NAME} g -u 2
+  ${THIS_NAME} g -n 8 -u 2
+  ${THIS_NAME} g -n -1
+  ${THIS_NAME} g -n 8 | sort
+
+  ${THIS_NAME} s 'あか'
+  ${THIS_NAME} s '赤'
+  ${THIS_NAME} s 'あか' '赤'
+
+  ${THIS_NAME} e -f 'あか'
+  ${THIS_NAME} e -b 'さき'
+  ${THIS_NAME} e -p 'かさ'
+  ${THIS_NAME} e -e 'あかさき'
+  ${THIS_NAME} e -r '^あか[さざ]き$'
+  ${THIS_NAME} e -f '赤'
+  ${THIS_NAME} e -b '崎'
+  ${THIS_NAME} e -p '々'
+  ${THIS_NAME} e -e '佐々木'
+  ${THIS_NAME} e -r '^赤.{1,}$'
+
+  ${THIS_NAME} e -F 'あか'
+  ${THIS_NAME} e -B 'さき'
+  ${THIS_NAME} e -P 'かさ'
+  ${THIS_NAME} e -E 'あかさき'
+  ${THIS_NAME} e -R '^あか[さざ]き$'
+  ${THIS_NAME} e -F '赤'
+  ${THIS_NAME} e -B '崎'
+  ${THIS_NAME} e -P '々'
+  ${THIS_NAME} e -E '佐々木'
+  ${THIS_NAME} e -R '^赤.{1,}$'
+
+  # 複数条件を指定するとAND
+  ${THIS_NAME} e -f 'あか' -B 'さき'
+  ${THIS_NAME} e -f '赤' -B '崎'
+  ${THIS_NAME} e -f 'あか' -B 'さき' -f '赤' -B '坂'
