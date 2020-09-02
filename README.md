@@ -71,7 +71,7 @@ cd Shell.LastNameGenerator.20200902095536/src
 ./jln.sh
 ```
 
-Show help.
+Show [help](https://raw.githubusercontent.com/ytyaru/Shell.LastNameGenerator.20200902095536/master/src/doc/help.txt).
 
 ```sh
 ./jln.sh -h
@@ -83,12 +83,6 @@ Show version.
 ./jln.sh -v
 ```
 
-sub commands|概要
-------------|----
-`g`|名字をランダム生成する。
-`s`|部分一致した名字を取得する。
-`e`|指定した条件に一致した名字を取得する。
-
 sub commands|Overview
 ------------|----
 `g`|Generate a surnames at random.
@@ -97,7 +91,7 @@ sub commands|Overview
 
 ## `g`: Generate
 
-Randomly generate surnames.
+Randomly generate surnames. [Help](https://raw.githubusercontent.com/ytyaru/Shell.LastNameGenerator.20200902095536/master/src/doc/help_generate.txt)
 
 ```sh
 ./jln.sh g
@@ -140,7 +134,7 @@ The command example is as follows.
 
 ## `s`: Select
 
-Select surname.
+Select surname. [Help](https://raw.githubusercontent.com/ytyaru/Shell.LastNameGenerator.20200902095536/master/src/doc/help_select.txt)
 
 ```sh
 ./jln.sh s 値 ...
@@ -177,7 +171,9 @@ Command example|Search method
 
 If you want to avoid entering regular expression metacharacters, use the `e` subcommand below.
 
-## `e`: 抽出
+## `e`: Extract
+
+Extract the surname by specifying conditions. [Help](https://raw.githubusercontent.com/ytyaru/Shell.LastNameGenerator.20200902095536/master/src/doc/help_extract.txt)
 
 ```sh
 ./jln.sh e [-fbperFBPER COND] ...
